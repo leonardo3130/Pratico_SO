@@ -1,0 +1,11 @@
+2023.07.20
+-C --> copia fs in C, copia di file e utilizzo di hard link, uso di stat per vedere ultima modifica
+-script python --> controllo caratteri ascii, subprocess con ls
+
+2024.02.14
+-C --> navigazione fs ricorsiva, uso di access per vedere se file è eseguibile o no, controllo se è bash(#!), o se è ELF (elf magic work)
+-C --> simile  asopra, solo che quando trovo un eseguibile con il nome giusto lo esegue con i suoi parametri (execvp e fork), e lo eseguo nella sua directory corrente (chdir)
+non funziona l'ordine di esecuzione dall'alto al basso del fs
+-pyhton --> subprocess con file, dizionari, os per ottenere directory e file della current directory
+-bash --> array associativi
+
