@@ -12,6 +12,6 @@ int main(int argc, char *argv[])
         perror("getcwd() error");
         return 1;
     }
-    printf("Hello, %s\n", argv[1]);
+    printf("Hellooooo, %s\n", argv[1]);
     return 0;
 }

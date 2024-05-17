@@ -26,7 +26,7 @@ void run_name(char *file_name, char *path, char *arguments[]) {
   char new_path[1000];
 
   DIR *dir;
-
+  
   dir = opendir(path);
 
   if(!dir) {
@@ -43,12 +43,19 @@ void run_name(char *file_name, char *path, char *arguments[]) {
       run_name(file_name, new_path, arguments);
     } else {
       if(strcmp(file_name, directory_entry->d_name) == 0 && access(new_path, X_OK) == 0) { //controlla che new_path abbia permesso da eseguibile
-        //esegui l'eseguibile
-        //cwd = path !!
         pid_t fork_retvalue;
         switch (fork_retvalue = fork()) {
           case 0:
-            execvp(new_path, arguments);
+            char command[1024];
+            if (chdir(path) == -1) {
+              perror("chdir");
+              exit(EXIT_FAILURE);
+            }
+            snprintf(command, sizeof(command), "./%s", directory_entry->d_name);
+            if(execvp(command, arguments) == -1) {
+              perror("execvp");
+              exit(EXIT_FAILURE);
+            }
             break;
           default:
             int status;
