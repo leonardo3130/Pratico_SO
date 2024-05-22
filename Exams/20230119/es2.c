@@ -25,30 +25,25 @@ ls -l | awk '{print $1}' | sort | uniq'
 int main(int argc, char *argv[])
 {
   
-  printf("hello");
   //programma deve funzionare con redirezione --> lettura standard input  
   char buffer[MAX];
-  char **list;
+  char list[MAX][MAX];
   int i = 0;
-  do {
-    fgets(buffer, sizeof(buffer), stdin);
+
+  while(fgets(buffer, sizeof(buffer), stdin)){
     buffer[strcspn(buffer, "\n")] = '\0';
-    if(buffer) 
-      strcpy(list[i], buffer);
-    else 
-      strcpy(list[i], "");
+    if(strlen(buffer) == 0) 
+      break;
+    strcpy(list[i], buffer);
     i++;
-  } while(buffer);
+  } 
 
   //command: "comando1 parametri comando 1 | ...... | comando n parametri comando n"
-  int len = i;
-  i = 0;
-  char command[MAX * MAX];
-  strcpy(command, list[i]);
-  while (strcmp("", list[i + 1]) != 0) {
-    strcat(command, " | ");
-    strcat(command, list[i + 1]);
-    i++;
+  char command[MAX * MAX] = "";
+  for (int j = 0; j < i; j++){
+    if(j > 0)
+      strcat(command, " | ");
+    strcat(command, list[j]);
   }
   //snprintf(command, sizeof(command), "%s | %s", buffer1, buffer2);
 
@@ -68,9 +63,6 @@ int main(int argc, char *argv[])
       wait(&status);
       break;
   }
-  execvp(args[0], argv);
-
-  printf("still here");
   
   return EXIT_SUCCESS;
 }
