@@ -4,3 +4,8 @@ La gerarchia risultante dovrebbe contenere tutti i file e le directory presenti 
 Se due file hanno lo stesso percorso e nomi uguali nei due alberi di partenza i contenuti devono essere
 concatenati nel file risultante.
 '''
+
+import os
+import subprocess
+
+

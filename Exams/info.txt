@@ -9,3 +9,7 @@ non funziona l'ordine di esecuzione dall'alto al basso del fs
 -pyhton --> subprocess con file, dizionari, os per ottenere directory e file della current directory
 -bash --> array associativi
 
+2023.01.19
+-
+-
+-
