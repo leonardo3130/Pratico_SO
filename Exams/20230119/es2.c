@@ -90,7 +90,7 @@ int main(int argc, char *argv[]) {
     }
     
     int num_commands = i;
-    int pipes[MAX][2]; // Array di pipe
+    int pipes[MAX][2]; // Array di pipe --> più redirection --> più pipes
 
     // Creazione delle pipe
     for (i = 0; i < num_commands - 1; i++) {
@@ -112,14 +112,16 @@ int main(int argc, char *argv[]) {
             // Redirezione degli input/output delle pipe
             if (i > 0) {
                 // Se non è il primo comando, redirige l'input dalla pipe precedente
-                if (dup2(pipes[i-1][0], STDIN_FILENO) == -1) {
+                if (dup2(pipes[i-1][0], STDIN_FILENO) == -1) { //chi proverà a leggere STDIN_FILENO, leggerà 
+                    // pipes[i-1][0] , 0 = lato lettura della pipe
                     perror("dup2 input");
                     exit(EXIT_FAILURE);
                 }
             }
             if (i < num_commands - 1) {
                 // Se non è l'ultimo comando, redirige l'output alla pipe successiva
-                if (dup2(pipes[i][1], STDOUT_FILENO) == -1) {
+                if (dup2(pipes[i][1], STDOUT_FILENO) == -1) { //chi proverà a scrivere STDOUT_FILENO, scriverà
+                    // pipes[i][1], 1 = lato scrittura della pipe
                     perror("dup2 output");
                     exit(EXIT_FAILURE);
                 }
@@ -140,12 +142,15 @@ int main(int argc, char *argv[]) {
                 token = strtok(NULL, " ");
             }
             args[arg_count] = NULL;
+            //char *strtok(char *str, const char *delim) --> tokenizza la stringa, 
+            //in questo caso ogni volta che incontra uno spazio
 
             // Esegue il comando
             if (execvp(args[0], args) == -1) {
                 perror("execvp");
                 exit(EXIT_FAILURE);
             }
+            //non serve scrivere su STDOUT e leggere da STDIN --> sono STANDARD
         }
     }
 
