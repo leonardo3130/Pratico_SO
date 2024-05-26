@@ -10,6 +10,5 @@ non funziona l'ordine di esecuzione dall'alto al basso del fs
 -bash --> array associativi
 
 2023.01.19
--
--
+-es1, es2 --> pipe, execvp, dup2, fgets
 -
