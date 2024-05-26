@@ -10,5 +10,10 @@ non funziona l'ordine di esecuzione dall'alto al basso del fs
 -bash --> array associativi
 
 2023.01.19
--es1, es2 --> pipe, execvp, dup2, fgets
--
+-es1, es2 --> pipe, execvp per esecuzione, dup2 per redirezione i/o fra le pipes, fgets per lettura stdin, strtok per tokenizzare 
+una stringa dato un carattere separatore.
+-es3 --> esplorazione ric. fs, creazione directory, copia file, append file
+
+2023.09.14
+-es1, es2 allocazione dinamica con malloc di un array dis tringeh char**, controllo tipo directory entry
+-es3 lettura symlink + visita del fs
