@@ -508,7 +508,7 @@ l'altra estremità (lettura se avevo aperto in scrittura e viceversa).
 
 Comunicazione tra processi tramite named pipes --> Vedi esempio su github (Pratico SO)
 
-Sì allora il comportamento definitivo dei pipes (named e non) è:
+Comportamento definitivo dei pipes (named e non) è:
 - la open blocca se l'altra estremità non viene aperta
   * per unnamed pipes questo non accade in quanto la pipe viene creata e aperta dalla stessa call
   * per le fifo un altro processo deve aprire il file

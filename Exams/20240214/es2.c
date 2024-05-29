@@ -40,7 +40,7 @@ void run_name(char *file_name, char *path, char *arguments[]) {
     
     snprintf(new_path, sizeof(new_path), "%s/%s",path, directory_entry->d_name);
     if(directory_entry->d_type == DT_DIR) {
-      run_name(file_name, new_path, arguments);
+      run_name(file_name, new_path, arguments); //chiamate ricorsiva 
     } else {
       if(strcmp(file_name, directory_entry->d_name) == 0 && access(new_path, X_OK) == 0) { //controlla che new_path abbia permesso da eseguibile
         pid_t fork_retvalue;
@@ -51,7 +51,8 @@ void run_name(char *file_name, char *path, char *arguments[]) {
               perror("chdir");
               exit(EXIT_FAILURE);
             }
-            snprintf(command, sizeof(command), "./%s", directory_entry->d_name);
+            snprintf(command, sizeof(command), "./%s", directory_entry->d_name); //--> ./ --> chdir setta come cwd quella 
+            //che ho appena raggiunto con la visita del file system
             if(execvp(command, arguments) == -1) {
               perror("execvp");
               exit(EXIT_FAILURE);

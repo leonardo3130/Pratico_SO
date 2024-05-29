@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
   snprintf(command, sizeof(command), "%s | %s", buffer1, buffer2);
 
   //esecuzione del comando
-  char *args[] = {"/bin/bash", "-c", command, NULL};
+  char *args[] = {"/bin/bash", "-c", command, NULL}; //NON VALE ALL'ESAME
   //invece di stare a separare gli elementi del comando per passarli a execvp
   //li passo in esecuzione a bash specificando con -c che il parametro dopo è il comando
   int pid, status;
@@ -64,7 +64,7 @@ int main(int argc, char *argv[])
       wait(&status);
       break;
   }
-  execvp(args[0], argv);
+  //execvp(args[0], argv);
 
   printf("still here");
   

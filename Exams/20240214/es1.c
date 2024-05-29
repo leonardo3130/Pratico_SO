@@ -80,13 +80,14 @@ void search_name(char *file_name, char *path) {
   }
 
   while ((directory_entry = readdir(dir)) != NULL) {
-    //printf("%s\n", directory_entry->d_name);
+    //skippo le entry . e .. --> non mi interessano
     if(strcmp(directory_entry->d_name, ".") == 0 || strcmp(directory_entry->d_name, "..") == 0)
       continue;
-    
-    snprintf(new_path, sizeof(new_path), "%s/%s",path, directory_entry->d_name);
+   
+    //path = percorso directory corrente
+    snprintf(new_path, sizeof(new_path), "%s/%s", path, directory_entry->d_name);
     if(directory_entry->d_type == DT_DIR) {
-      search_name(file_name, new_path);
+      search_name(file_name, new_path); //ricerca ricorsiva nel file system
     } else {
       if(strcmp(file_name, directory_entry->d_name) == 0 && access(new_path, X_OK) == 0) { //controlla che new_path abbia permesso da eseguibile
         if(isScript(new_path)) {
