@@ -26,4 +26,4 @@ una stringa dato un carattere separatore.
 2023.01.23
 - es1 --> named pipe --> open read (se ritorna 0 altro estremo chiuso),
 - es2 --> come sopra + invio di segnali con kill e ricezione custon nella prova
-- es3 --> 
+- es3 --> copia di file, scansione di directory e filtraggio directory 
