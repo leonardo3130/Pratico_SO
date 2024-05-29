@@ -17,3 +17,13 @@ una stringa dato un carattere separatore.
 2023.09.14
 -es1, es2 allocazione dinamica con malloc di un array dis tringeh char**, controllo tipo directory entry
 -es3 lettura symlink + visita del fs
+
+2023.06.14
+- es1 --> utilizzo timer con epoll --> epoll_event, epoll_create1, timerfd_create, timerfd_settime, epoll_ctl 
+- es2 --> utilizzo timer multipli insieme con epoll, gestione argv e argc senza creare array aggiuntivi
+- es3 --> NON FATTO 
+
+2023.01.23
+- es1 --> named pipe --> open read (se ritorna 0 altro estremo chiuso),
+- es2 --> come sopra + invio di segnali con kill e ricezione custon nella prova
+- es3 --> 

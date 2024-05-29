@@ -508,6 +508,13 @@ l'altra estremità (lettura se avevo aperto in scrittura e viceversa).
 
 Comunicazione tra processi tramite named pipes --> Vedi esempio su github (Pratico SO)
 
+Sì allora il comportamento definitivo dei pipes (named e non) è:
+- la open blocca se l'altra estremità non viene aperta
+  * per unnamed pipes questo non accade in quanto la pipe viene creata e aperta dalla stessa call
+  * per le fifo un altro processo deve aprire il file
+- la read blocca se non c'è da leggere E se l'altro lato è aperto in scrittura
+- la read non blocca per pipe "rotti", ossia quando l'altro lato chiude il file descriptor del lato per scrivere
+- non so cosa faccia la write ma non importa perché il blocco sarebbe allo stage di apertura
 Vedi video code vault su yt.
 
 ATTESA DI EVENTI

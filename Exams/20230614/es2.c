@@ -87,7 +87,7 @@ void timed_print(char *argv[], int argc) {
     }
 
     
-    //aggiunta tfd all'epoll set 
+    //aggiunta eventi all'epoll 
     ev.events = EPOLLIN; //file associato è disponibile per operazioni di lettura
     ev.data.fd = timers[i].fd; //descrittore del file da monitorare
     if (epoll_ctl(epollfd, EPOLL_CTL_ADD, timers[i].fd, &ev) == -1) { //EPOLL_CTL_ADD -->  
