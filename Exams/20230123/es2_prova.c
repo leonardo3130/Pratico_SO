@@ -27,7 +27,7 @@ int main(int argc, char *argv[]) {
     int signal = SIGUSR1;
 
     char line[512];
-    snprintf(line, sizeof(line) - 1, "%d %d %d\n", pid, signal, 5);
+    snprintf(line, sizeof(line) - 1, "%d %d\n", pid, signal);
 
     if (write(fd, line, sizeof(line) - 1) == -1) {
         perror("dprintf");
