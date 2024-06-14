@@ -81,3 +81,20 @@ siano ./testprog, ./dir1/testprog, ./dir/dir3/testprog, run_name deve eseguire
 testprog a b c
 per 3 volte. Nella prima esecuzione la working directory deve essere la dir corrente '.', la seconda
 deve avere come working directory './dir1' e la terza './dir2/dir3'.
+
+<hr>
+
+### Esercizio 3: Python o bash: 10 punti
+Scrivere un programma python o uno script bash che crei un catalogo dei file presenti nella directory
+passata come parametro (o la directory corrente se manca il parametro).
+Il catalogo deve essere ordinato in categorie in base alla stringa ritornata dal comando 'file'.
+Es:
+$ catls
+ASCII text:
+testo1
+favourites.txt
+directory:
+mydir
+lib
+Unicode text, UTF-8 text:
+unitesto

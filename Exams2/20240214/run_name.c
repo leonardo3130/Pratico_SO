@@ -90,7 +90,7 @@ void search_in_directory(const char *dir_name, const char *target_name, const ch
                     break;
                 
                 case -1:
-                    perror("fork");
+                    perror("Errore nella fork");
                     break;
                 
                 default:
