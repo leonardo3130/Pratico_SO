@@ -2,7 +2,14 @@
 #include <unistd.h>
 #include <signal.h>
 
-
+/**
+ * Funzione di gestione del segnale SIGUSR1.
+ * Stampa una stringa ricevuta come segnale.
+ * 
+ * @param signo il numero del segnale ricevuto
+ * @param info informazioni aggiuntive sul segnale
+ * @param context contesto di esecuzione del segnale
+ */
 void received_string(int signo, siginfo_t *info, void *context){
     long msg_long = (long)info->si_value.sival_ptr;
     if(msg_long == 0)
@@ -19,6 +26,14 @@ void received_string(int signo, siginfo_t *info, void *context){
     sigqueue(info->si_pid, SIGUSR1, v);
 }
 
+/**
+ * Funzione principale del programma.
+ * Stampa il PID del processo e imposta la gestione del segnale SIGUSR1.
+ * 
+ * @param argc il numero di argomenti passati al programma
+ * @param argv array di stringhe contenente gli argomenti passati al programma
+ * @return 0 se il programma termina correttamente, altrimenti un valore diverso da 0
+ */
 int main(int argc, char *argv[]){
     printf("%d\n", getpid());
     struct sigaction act;
