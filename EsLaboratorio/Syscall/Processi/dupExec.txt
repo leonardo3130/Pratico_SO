@@ -1,0 +1,10 @@
+total 128
+-rw-r--r--  1 andrea  staff   1121 17 Giu 12:22 dup.c
+-rw-r--r--  1 andrea  staff     12 17 Giu 12:22 dup.txt
+-rwxr-xr-x  1 andrea  staff  33544 17 Giu 12:26 dupExec
+-rw-r--r--  1 andrea  staff    219 17 Giu 12:23 dupExec.c
+-rw-r--r--  1 andrea  staff      0 17 Giu 12:26 dupExec.txt
+-rw-r--r--  1 andrea  staff    422 17 Giu 11:42 execve.c
+-rwxr-xr-x  1 andrea  staff    378 17 Giu 11:48 fork.c
+-rw-r--r--  1 andrea  staff    391 17 Giu 12:08 forkExecvp.c
+-rw-r--r--  1 andrea  staff    603 17 Giu 12:03 forkWait.c
