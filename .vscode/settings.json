@@ -1,5 +1,8 @@
 {
     "files.associations": {
-        "types.h": "c"
+        "types.h": "c",
+        "__bit_reference": "c",
+        "bitset": "c",
+        "unordered_map": "c"
     }
 }
