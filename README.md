@@ -1,11 +1,17 @@
 # Pratico_SO 
-Directory in which I'll store the coding exercises I'll be doing to study for the operating systems pratical exam at UNIBO.  
+Directory in which I'll store the coding exercises I'll be doing to study for the operating systems practical exam at UNIBO.  
 
-## EsLaboratorio
-Contiene gli esercizi svolti durante le lezioni dal prof e commentati da @aNdReA9111
+#### - EsLaboratorio: 
+Contains exercises done during lectures by the professor and commented by @aNdReA9111.
 
-## Exams 
-Contiene soluzioni a tracce di esame proposte da @leonardo3130
+#### - Exams: 
+Contains solutions to exam questions proposed by @leonardo3130.
 
-## Exams2
-Contiene soluzioni a tracce di esame proposte da @aNdReA9111
+#### - Exams2: 
+Contains solutions to exam questions proposed by @aNdReA9111.
+
+<hr>
+
+Link utili:
+    - [Catalogo System Call](https://so.v2.cs.unibo.it/wiki/index.php/Il_%27%27catalogo%27%27_delle_System_Call)
+    - [Prove svolte](https://so.v2.cs.unibo.it/wiki/index.php/Prove_svolte_e_soluzioni_proposte)
