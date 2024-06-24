@@ -16,15 +16,15 @@ se in un altra shell si fornisce il comando: "echo ciao > /tmp/ff", fifotext sta
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
+// #include <math.h>
 #include <fcntl.h>
 #include <string.h>
 #include <unistd.h>
-#include <dirent.h>
+// #include <dirent.h>
 #include <sys/stat.h>
-#include <sys/timerfd.h>
-#include <sys/epoll.h>
-#include <time.h>
+// #include <sys/timerfd.h>
+// #include <sys/epoll.h>
+// #include <time.h>
 
 int main(int argc, char *argv[])
 {
