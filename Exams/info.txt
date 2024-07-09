@@ -26,4 +26,9 @@ una stringa dato un carattere separatore.
 2023.01.23
 - es1 --> named pipe --> open read (se ritorna 0 altro estremo chiuso),
 - es2 --> come sopra + invio di segnali con kill e ricezione custon nella prova
-- es3 --> copia di file, scansione di directory e filtraggio directory 
+- es3 --> copia di file, scansione di directory e filtraggio directory
+
+2024.01.19
+- es1 --> concatenzione di stringhe con terminatore di stringa, da cui ricavare array di stringhe per excecvp
+- es2 --> named pipe che riceve la stringa di comandi come formattata sopra, ricavare array di stringhe per excecvp ed esecuzione
+- es3 --> lavoro con path e visita fs, operazioni con set, uso di sys.argv, uso di operazioni split e join 
