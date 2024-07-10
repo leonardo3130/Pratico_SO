@@ -31,4 +31,8 @@ una stringa dato un carattere separatore.
 2024.01.19
 - es1 --> concatenzione di stringhe con terminatore di stringa, da cui ricavare array di stringhe per excecvp
 - es2 --> named pipe che riceve la stringa di comandi come formattata sopra, ricavare array di stringhe per excecvp ed esecuzione
-- es3 --> lavoro con path e visita fs, operazioni con set, uso di sys.argv, uso di operazioni split e join 
+- es3 --> lavoro con path e visita fs, operazioni con set, uso di sys.argv, uso di operazioni split e join
+
+2024.05.30
+-es1, es2 --> execvp e execvpe, con clonazione di un processo leggendo le sue info da proc/PID/cmdline e proc/PID/exe 
+-es3 --> utilizzo di psutil per raccogliere i processi in base a pid e path dell'eseguibile, dizionari
