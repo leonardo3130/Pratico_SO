@@ -1,3 +1,8 @@
+2022.07.22 
+es2 --> realizzazione grafica del fs di una directory senza concatenare stringhe --> openat, fdopendir, dirent per 
+vedere le varie entry della directory in esame, controllo se entry è directory o meno
+es3 --> esecuzione di script, ma solo script non ELF (subprocess.run(script_path)) 
+
 2023.07.20
 -C --> copia fs in C, copia di file e utilizzo di hard link, uso di stat per vedere ultima modifica
 -script python --> controllo caratteri ascii, subprocess con ls
@@ -36,3 +41,8 @@ una stringa dato un carattere separatore.
 2024.05.30
 -es1, es2 --> execvp e execvpe, con clonazione di un processo leggendo le sue info da proc/PID/cmdline e proc/PID/exe 
 -es3 --> utilizzo di psutil per raccogliere i processi in base a pid e path dell'eseguibile, dizionari
+
+2024.06.25
+es1 --> inotify con aggiunta di file a una directory, parsing di stringhe per execv, fork 
+es2 --> qualche problema...
+es3 --> dizionari, subprocess con ls -l, symlink, mkdir
