@@ -23,6 +23,12 @@ una stringa dato un carattere separatore.
 -es1, es2 allocazione dinamica con malloc di un array dis tringeh char**, controllo tipo directory entry
 -es3 lettura symlink + visita del fs
 
+2023.05.31
+-es1 --> lettura cartella /proc/PID con analisi dei file per leggere i contenuti di cmdline confrontarlo 
+con la stringa in input --> utilizzo di memcmp 
+-es2 --> non fatto, uguale a es2 20240530
+-es3 --> dizionari, lettura link simbolici e lettura inode con os.Stat
+
 2023.06.14
 - es1 --> utilizzo timer con epoll --> epoll_event, epoll_create1, timerfd_create, timerfd_settime, epoll_ctl 
 - es2 --> utilizzo timer multipli insieme con epoll, gestione argv e argc senza creare array aggiuntivi
