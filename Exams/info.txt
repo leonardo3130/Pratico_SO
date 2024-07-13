@@ -1,3 +1,9 @@
+2021.02.17
+es1 --> analisi directory entry per capire se entry è un link simbolico, lettura link ed eventuale rimozione, lavoro con snprintf per preparare i path 
+es2 --> analisi directory entry per capire se entry è un link simbolico, lettura link ed eventuale rimozione, lavoro con snprintf per preparare i path
+creazione hard link, con ulteriore lavoro con snprintf per preparare i path + "accorciamento stringa" (inserendo '\0' prima)
+es3 --> lettura file, controllo eseguibile, list.sort con lambda, os.path.getmtime(path) per sapere ultima modifica 
+
 2022.07.22 
 es2 --> realizzazione grafica del fs di una directory senza concatenare stringhe --> openat, fdopendir, dirent per 
 vedere le varie entry della directory in esame, controllo se entry è directory o meno
