@@ -1,20 +1,30 @@
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
 #include <signal.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
 
-
-
-void sigh(int signo) {
-	write(STDOUT_FILENO, "SIG\n", 4);
+void handler1() {
+  raise(SIGUSR2);
+  char *s = "Handler1\n";
+  write(1, s, strlen(s));
 }
 
-int main(int argc, char * argv[]) {
-	__uint8_t a = 0;
-	signal(SIGUSR1, sigh);
-	
-	for (;;) {
-		sleep(1);
-		printf("waiting %d sec \n", a++);
-	}
+void handler2() {
+  char *s = "Handler2\n";
+  write(1, s, strlen(s));
+}
+
+int main() {
+  struct sigaction act = {0};
+
+  act.sa_sigaction = &handler1;
+  sigaction(SIGUSR1, &act, NULL);
+
+  act.sa_sigaction = &handler2;
+  sigaction(SIGUSR2, &act, NULL);
+
+  raise(SIGUSR1);
+  char *s = "After singal\n";
+  write(1, s, strlen(s));
 }

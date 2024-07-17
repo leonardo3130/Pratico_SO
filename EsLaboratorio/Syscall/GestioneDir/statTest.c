@@ -81,3 +81,35 @@ int main(int argc, char *argv[]) {
 
     exit(EXIT_SUCCESS); // Termina il programma con successo
 }
+
+/*
+#include <stdio.h>
+#include <sys/stat.h>
+#include <unistd.h>
+
+int main() {
+    struct stat fileStat;
+    const char *filePath = "example.txt";
+
+    if (stat(filePath, &fileStat) < 0) {
+        perror("stat");
+        return 1;
+    }
+
+    printf("File: %s\n", filePath);
+    printf("Inode: %ld\n", (long)fileStat.st_ino);
+    printf("File mode: %o\n", fileStat.st_mode);
+    printf("Number of links: %ld\n", (long)fileStat.st_nlink);
+    printf("User ID: %ld\n", (long)fileStat.st_uid);
+    printf("Group ID: %ld\n", (long)fileStat.st_gid);
+    printf("File size: %lld bytes\n", (long long)fileStat.st_size);
+    printf("Blocks allocated: %lld\n", (long long)fileStat.st_blocks);
+    printf("Last access time: %ld\n", (long)fileStat.st_atime);
+    printf("Last modification time: %ld\n", (long)fileStat.st_mtime);
+    printf("Last status change time: %ld\n", (long)fileStat.st_ctime);
+
+    return 0;
+}
+
+
+*/
