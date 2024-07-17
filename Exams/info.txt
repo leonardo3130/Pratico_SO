@@ -2,7 +2,15 @@
 es1 --> analisi directory entry per capire se entry è un link simbolico, lettura link ed eventuale rimozione, lavoro con snprintf per preparare i path 
 es2 --> analisi directory entry per capire se entry è un link simbolico, lettura link ed eventuale rimozione, lavoro con snprintf per preparare i path
 creazione hard link, con ulteriore lavoro con snprintf per preparare i path + "accorciamento stringa" (inserendo '\0' prima)
-es3 --> lettura file, controllo eseguibile, list.sort con lambda, os.path.getmtime(path) per sapere ultima modifica 
+es3 --> lettura file, controllo eseguibile, list.sort con lambda, os.path.getmtime(path) per sapere ultima modifica
+
+2022.06.22
+es1 --> segnali con sigqueue, sigaction, allegato di un messaggio al segnale con union sigval.sigval_ptr --> è un void* che occupa quindi 64 bit, ma qui
+va usato come variabile non come puntatore --> scrivo i suoi 8 bit castando il puntatore della stringa di 8 byte (64 bit) al puntatore a un intero a 64 bit
+e dereferenzio questo puntatore e casto il valore int64_t a void* --> fatto, la lettura avviene esaminando ogni carattere della stringa/intero/void* 
+--> 8 iterazioni ad ognuna esamino gli ultimi 8 bit con % 256 e poi divido il messaggio (castato da void* a int64_t) per 256. 
+es2 --> come es1, ma devo usare segnali real time affiché essi vengano accodati, altrimenti li perdo
+es3 --> subprocess con file e dizionari per avere file catalogati in base all'ouput del comando
 
 2022.07.22 
 es2 --> realizzazione grafica del fs di una directory senza concatenare stringhe --> openat, fdopendir, dirent per 
