@@ -1,0 +1,12 @@
+/usr/bin/ls
+ls
+/tmp
+
+/usr/bin/ls
+ls
+/tmp
+
+/usr/bin/ls
+ls
+/tmp
+
