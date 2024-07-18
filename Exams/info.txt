@@ -4,6 +4,12 @@ es2 --> analisi directory entry per capire se entry è un link simbolico, lettur
 creazione hard link, con ulteriore lavoro con snprintf per preparare i path + "accorciamento stringa" (inserendo '\0' prima)
 es3 --> lettura file, controllo eseguibile, list.sort con lambda, os.path.getmtime(path) per sapere ultima modifica
 
+2022.06.08
+es2 --> lavoro con symlink, readlink, unlink, lstat per controllare se file è link o meno
+es3 --> utilizzo di psutils per nome esegiubile, lista pid attivi e ottenere uids di un processo, lettura 
+occupazione di memoria direttamente dalla lettura del file /proc/PID/status trovando la riga con 
+line.startswith e ottengo valore rimuovendo il prefisso della riga con line.removeprefix
+
 2022.06.22
 es1 --> segnali con sigqueue, sigaction, allegato di un messaggio al segnale con union sigval.sigval_ptr --> è un void* che occupa quindi 64 bit, ma qui
 va usato come variabile non come puntatore --> scrivo i suoi 8 bit castando il puntatore della stringa di 8 byte (64 bit) al puntatore a un intero a 64 bit
@@ -16,6 +22,11 @@ es3 --> subprocess con file e dizionari per avere file catalogati in base all'ou
 es2 --> realizzazione grafica del fs di una directory senza concatenare stringhe --> openat, fdopendir, dirent per 
 vedere le varie entry della directory in esame, controllo se entry è directory o meno
 es3 --> esecuzione di script, ma solo script non ELF (subprocess.run(script_path)) 
+
+2022.09.07 
+es1 --> fork, waitpid, execvp da argv e analisi status figlio terminato
+es2 --> fork, waitpid, execvp da argv e analisi status figlio terminato + implementazione di timer con gettimeofday 
+es3 --> controllo su ELF e utilizzo os.path.getsize()
 
 2023.07.20
 -C --> copia fs in C, copia di file e utilizzo di hard link, uso di stat per vedere ultima modifica
