@@ -1,4 +1,4 @@
-'''
+"""
 Scrivere un programma python o uno script bash che data una directory passata come parametro
 produca una lista dei link simbolici presenti nel sottoalbero che fanno riferimento allo stesso file.
 Esempio, in questo caso:
@@ -17,9 +17,10 @@ lrwxrwxrwx 1 renzo renzo 15 Sep 10 15:45 gsld -> /tmp/test/file1
 lrwxrwxrwx 1 renzo renzo 8 Sep 10 15:43 sld -> ../file1
 il programma lanciato con parametro /tmp/test deve trovare che sl1, sl1bis, d/sld e d/gllsd indicano lo
 stesso file. (similmente dovrebbe rilevare altri insiemi di link simbolici che indicano lo stesso file)
-'''
+"""
 
 import os
+
 
 def scan_subtree_symlink(root):
     file_dict = {}
@@ -27,15 +28,19 @@ def scan_subtree_symlink(root):
         for filename in filenames:
             file_path = os.path.join(dirpath, filename)
             if os.path.islink(file_path):
-                link_target = os.readlink(file_path)        #link del target 
-                target_name = os.path.basename(link_target) #nome del target 
-                abs_target = os.path.abspath(target_name)   #link assoluto del target
-                if abs_target not in file_dict.keys():
-                    file_dict[abs_target] = [file_path]
+                link_target = os.readlink(file_path)  # link del target
+                if link_target[0] != "/":
+                    link_target = os.path.join(dirpath, link_target)
+                real_path = os.path.realpath(link_target)
+                if real_path not in file_dict.keys():
+                    file_dict[real_path] = [file_path]
                 else:
-                    file_dict[abs_target].append(file_path);
+                    file_dict[real_path].append(file_path)
     return file_dict
+
+
 if __name__ == "__main__":
-    d = scan_subtree_symlink('.')
-    for k,v in d.items():
-        print(f'{k} : {v}')
+    d = scan_subtree_symlink(".")
+
+    for k, v in d.items():
+        print(f"{k} : {v}")
