@@ -85,7 +85,6 @@ int main(int argc, char *argv[]) {
     while ((entry = readdir(dir)) != NULL) {
       if (strcmp(entry->d_name, ".") != 0 && strcmp(entry->d_name, "..") != 0) {
         char entrypath[MAX];
-        printf("\n%s", entry->d_name);
         snprintf(entrypath, MAX, "%s/%s", argv[1], entry->d_name);
         invertLink(entrypath);
       }
