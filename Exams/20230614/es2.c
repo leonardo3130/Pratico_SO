@@ -10,130 +10,124 @@ $ mftdtest 2,1.1,a 2,1.2,b 3,0.5,c
 2.400255 b
 */
 
+#include <fcntl.h>
+#include <math.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
-#include <fcntl.h>
 #include <string.h>
-#include <unistd.h>
-#include <dirent.h>
-#include <sys/stat.h>
-#include <sys/timerfd.h>
 #include <sys/epoll.h>
-#include <time.h>
+#include <sys/stat.h>
+#include <sys/time.h>
+#include <sys/timerfd.h>
+#include <unistd.h>
 
-#define MAX_EVENTS 10
+#define MAX 4096
+#define MAX_EVENTS 16
 
-struct timer_struct {
-  int fd;
-  int expired;
-  int count;
-  char s[100];
+struct timer_exp {
+  uint64_t times;
+  uint64_t expired;
+  char *str;
+  int tfd;
 };
 
-int checkOver(struct timer_struct *timers, int size) {
-  for (int i = 0; i < size; i++) {
-    if((timers + i)->expired < (timers + i)->count) 
-      return 0;
+int checkOver(struct timer_exp t_structs[], int ntimers) {
+  for (int i = 0; i < ntimers; i++) {
+    if (t_structs[i].expired < t_structs[i].times)
+      return 1;
   }
-  return 1;
+  return 0;
 }
 
-void timed_print(char *argv[], int argc) {
-  const int SIZE_TIMERS = argc / 3;
-  int epollfd, num_events;
-  struct epoll_event ev, events[MAX_EVENTS];
-  struct timer_struct timers[SIZE_TIMERS];
-  uint64_t exp;
-  // Creazione di un epollfd per monitorare il timerfd
-  if ((epollfd = epoll_create1(0)) == -1) { // creazione istanza di epoll
+int main(int argc, char *argv[]) {
+
+  int ntimers = argc - 1;
+  int tfds[ntimers];
+  char *vals[3 * ntimers];
+  int c = 0;
+  int l;
+  struct timer_exp t_structs[ntimers];
+  struct epoll_event events[MAX_EVENTS];
+  int efd = epoll_create1(0);
+  if (efd == -1) {
     perror("epoll_create1");
     exit(EXIT_FAILURE);
   }
 
-  // Creazione dei timer --> ne ho molteplici
-  for(int i = 0; i < SIZE_TIMERS; i++) { 
-    if ((timers[i].fd = timerfd_create(CLOCK_MONOTONIC, 0)) == -1) {
-        perror("timerfd_create");
-        exit(EXIT_FAILURE);
-    }
-
-    //3*(i+1) - 1 --> stringa
-    //3*(i+1) - 2 --> tempo 
-    //3*(i+1) - 3 --> count
-    timers[i].expired = 0;
-    timers[i].count = atoi(argv[3 * (i + 1) - 3]);
-    strncpy(timers[i].s, argv[3 * (i + 1) - 1], 100);
-
-    printf("str %s\n", timers[i].s);
-    printf("count %d\n", timers[i].count);
-    printf("expired %d\n", timers[i].expired);
-    // Impostazione del timer a scadenza ogni secondo
-    float time = atof(argv[3 * (i + 1) - 2]);
-    int seconds = (int)time;
-    float remaining = time - (float)seconds;
-    remaining *= (float)pow((double)10, (double)9);
-    int nseconds = (int)remaining;
-
-    struct itimerspec itval;
-    itval.it_interval.tv_sec = seconds;
-    itval.it_interval.tv_nsec = nseconds;
-    itval.it_value.tv_sec = seconds;
-    itval.it_value.tv_nsec = nseconds;
-    
-    if (timerfd_settime(timers[i].fd, 0, &itval, NULL) == -1) { //inizia o stoppa il timer 
-      perror("timerfd_settime");
+  for (int i = 0; i < ntimers; i++) {
+    tfds[i] = timerfd_create(CLOCK_MONOTONIC, 0);
+    if (tfds[i] == -1) {
+      perror("timerfd_create");
       exit(EXIT_FAILURE);
     }
 
-    
-    //aggiunta eventi all'epoll 
-    ev.events = EPOLLIN; //file associato è disponibile per operazioni di lettura
-    ev.data.fd = timers[i].fd; //descrittore del file da monitorare
-    if (epoll_ctl(epollfd, EPOLL_CTL_ADD, timers[i].fd, &ev) == -1) { //EPOLL_CTL_ADD -->  
+    l = strlen(argv[i + 1]);
+    vals[c++] = argv[i + 1];
+    for (int j = 0; j < l; j++) {
+      if (argv[i + 1][j] == ',') {
+        argv[i + 1][j] = '\0';
+        vals[c++] = &argv[i + 1][j + 1];
+      }
+    }
+
+    t_structs[i].times = atoi(vals[i * 3]);
+    t_structs[i].expired = 0;
+    t_structs[i].tfd = tfds[i];
+    t_structs[i].str = vals[i * 3 + 2];
+    float time = atof(vals[i * 3 + 1]);
+    int s = (int)time;
+    float remaining = time - (float)s;
+    remaining *= (float)pow((double)10, (double)9);
+    int ns = (int)remaining;
+
+    struct itimerspec timer;
+    timer.it_value.tv_sec = s;
+    timer.it_value.tv_nsec = ns;
+    timer.it_interval.tv_sec = s;
+    timer.it_interval.tv_nsec = ns;
+
+    struct epoll_event ev;
+    ev.events = EPOLLIN;
+    ev.data.fd = tfds[i];
+
+    if (timerfd_settime(tfds[i], 0, &timer, NULL) == -1) {
+      perror("timerfd_settime");
+      exit(EXIT_FAILURE);
+    }
+    if (epoll_ctl(efd, EPOLL_CTL_ADD, tfds[i], &ev) == -1) {
       perror("epoll_ctl");
       exit(EXIT_FAILURE);
     }
   }
-  
-  //loop d'ascolto degli eventi
-  int count = 0;
-  int flag = 0;
-  while(flag != 1) {
-    //ottengo gli eventi 
-    num_events = epoll_wait(epollfd, events, MAX_EVENTS, -1); //-1 parametro timeout --> epoll_wait bloccata in attesa di eventi 
-    if (num_events == -1) {
+
+  uint64_t exp;
+  int flag = 1;
+  while (flag) {
+    int n = epoll_wait(efd, events, MAX_EVENTS, -1);
+    if (n == -1) {
       perror("epoll_wait");
       exit(EXIT_FAILURE);
     }
-
-
-    for (int i = 0; i < num_events; i++) {
-      for(int j = 0; j < SIZE_TIMERS; j++) {
-        // Lettura del numero di scadenze del timer
-        if(timers[j].fd == events[i].data.fd && timers[j].expired < timers[j].count) {
-          //per leggere mi assicuro prima che l'evento sia relativo al fd del timer attuale (j) e che 
-          //quest'ultimo non abbia finito le sue stampe
+    for (int i = 0; i < n; i++) {
+      for (int j = 0; j < ntimers; j++) {
+        if (events[i].data.fd == t_structs[j].tfd &&
+            t_structs[j].expired < t_structs[j].times) {
           if (read(events[i].data.fd, &exp, sizeof(uint64_t)) == -1) {
             perror("read");
             exit(EXIT_FAILURE);
           }
-          timers[j].expired += exp; //exp è il numeo di volte che il timer è scaduto, se > 1 ci sono stati ritardi
-          printf("%s\n", timers[j].s);
+          t_structs[j].expired += exp;
+          printf("\n%s", t_structs[j].str);
+          break;
         }
-        flag = checkOver(timers, SIZE_TIMERS);
       }
     }
+    flag = checkOver(t_structs, ntimers);
   }
+  for (int i = 0; i < ntimers; i++)
+    close(tfds[i]);
+  close(efd);
 
-  //chiusura fd
-  for (int i = 0; i < SIZE_TIMERS; i++) 
-    close(timers[i].fd);
-  close(epollfd);
-}
-
-int main(int argc, char *argv[])
-{
-  timed_print(argv + 1, argc - 1);  
   return EXIT_SUCCESS;
 }

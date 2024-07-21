@@ -4,6 +4,10 @@ es2 --> analisi directory entry per capire se entry è un link simbolico, lettur
 creazione hard link, con ulteriore lavoro con snprintf per preparare i path + "accorciamento stringa" (inserendo '\0' prima)
 es3 --> lettura file, controllo eseguibile, list.sort con lambda, os.path.getmtime(path) per sapere ultima modifica
 
+20210916
+es1 --> inorify + execvp + fork + lavror su stringa per formattarla in array di stringhe per execvp
+es2 --> inorify + execvp + fork + lavror su stringa per formattarla in array di stringhe per execvp + dup2
+
 2022.06.08
 es2 --> lavoro con symlink, readlink, unlink, lstat per controllare se file è link o meno
 es3 --> utilizzo di psutils per nome esegiubile, lista pid attivi e ottenere uids di un processo, lettura 
