@@ -90,7 +90,6 @@ int main(int argc, char *argv[]) {
       }
     }
   } else {
-    printf("qaa");
     invertLink(argv[1]);
   }
 

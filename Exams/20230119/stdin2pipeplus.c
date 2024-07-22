@@ -11,19 +11,20 @@ void execute_pipeline(char *cmds[], int n) {
   int i;
   int fd[2];
   pid_t pid;
-  int fd_in = 0; // First command reads from stdin
+  int fd_in = STDIN_FILENO; // First command reads from stdin
 
+  pipe(fd); // ok
   for (i = 0; i < n; ++i) {
-    pipe(fd);
+    // pipe(fd);  //ok
 
     if ((pid = fork()) == -1) {
       perror("fork");
       exit(1);
     } else if (pid == 0) {
       // legge da fd_in e scrive in fd[1]
-      dup2(fd_in, 0); // fd_in punta a stdin
-      if (i < n - 1) {
-        dup2(fd[1], 1); // fd[1] punta a stdout
+      dup2(fd_in, STDIN_FILENO);    // fd_in punta a stdin
+      if (i < n - 1) {              // tuti tranne l'ultimo scrivono nella pipe
+        dup2(fd[1], STDOUT_FILENO); // fd[1] punta a stdout
       }
       close(fd[0]); // non usata
 

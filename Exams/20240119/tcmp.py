@@ -35,7 +35,7 @@ def scan_subtree(root):
         for filename in filenames:
             path = os.path.join(dirpath, filename)
             path_list = path.split("/")
-            path_list = path_list[2:]
+            path_list = path_list[1:]
             path = "/".join(path_list)
             paths.add(path)
     return paths

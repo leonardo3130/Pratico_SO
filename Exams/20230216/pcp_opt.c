@@ -33,7 +33,7 @@ void pcp(int rfd, int wfd, int file_len, int par) {
       }
       exit(EXIT_SUCCESS);
     } else {
-      total += unit;
+      total += unit; // importante che solo padre aggiorni total
     }
   }
 

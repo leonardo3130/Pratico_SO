@@ -69,7 +69,7 @@ void stdin2pipe(char *s, int size) {
   default: // father
     close(pipefd[1]);
 
-    dup2(pipefd[0], STDIN_FILENO);
+    dup2(pipefd[0], STDIN_FILENO); // per leggere dal figlio
     close(pipefd[0]);
     execvp(args2[0], args2);
 

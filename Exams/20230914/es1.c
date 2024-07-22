@@ -38,7 +38,7 @@ char **vreaddir(const char *path) {
     dir_len++;
   }
 
-  // allocazione memoria per l'array di stringhe
+  // allocazione memoria per l'array di stringhe --> (per i puntatori char *)
   char **names = (char **)malloc((dir_len + 1) * sizeof(char *)); //+1 = NULL
 
   closedir(dir);

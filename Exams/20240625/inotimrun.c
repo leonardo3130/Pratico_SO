@@ -66,7 +66,7 @@ void checkFileAdd(char *dir_path) {
     exit(EXIT_FAILURE);
   }
 
-  char buf[4096] __attribute__((aligned(__alignof__(struct inotify_event))));
+  char buf[MAX] __attribute__((aligned(__alignof__(struct inotify_event))));
   const struct inotify_event *event;
   ssize_t len;
   for (;;) {
@@ -94,6 +94,8 @@ void checkFileAdd(char *dir_path) {
       }
     }
   }
+  inotify_rm_watch(inotify_fd, wd);
+  close(inotify_fd);
 }
 
 int main(int argc, char *argv[]) {

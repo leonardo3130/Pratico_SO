@@ -64,7 +64,7 @@ int main(int argc, char *argv[]) {
 
   struct epoll_event ev, events[MAX_EVENTS];
   ev.events = EPOLLIN;
-  ev.data.fd = tfd;
+  ev.data.fd = tfd; // "data" verrà ritornato quando tfd sarà "pronto"
 
   int efd = epoll_create1(0);
   if (efd == -1) {
@@ -72,7 +72,7 @@ int main(int argc, char *argv[]) {
     exit(EXIT_FAILURE);
   }
 
-  if (epoll_ctl(efd, EPOLL_CTL_ADD, tfd, &ev) == -1) {
+  if (epoll_ctl(efd, EPOLL_CTL_ADD, tfd, &ev) == -1) { // monitoro tdf con epoll
     perror("epoll_ctl");
     exit(EXIT_FAILURE);
   }

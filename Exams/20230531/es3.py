@@ -28,7 +28,9 @@ def find_links(dir, d):
             if os.path.islink(file_path):
                 # devo aggiungere root + "/" perché readlink ritorna un path
                 # calcolato in relazione alla posizione del link
-                inode = os.stat(root + "/" + os.readlink(file_path)).st_ino
+                inode = os.stat(
+                    root + "/" + os.readlink(file_path)
+                ).st_ino  # --> inode file indicat #--> inode file indicatoo
                 if inode in d.keys():
                     d[inode] += 1
                 else:

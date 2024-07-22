@@ -48,6 +48,7 @@ int main(int argc, char *argv[]) {
     }
   }
   args[c] = NULL;
-  execvp(args[0], args);
+  execvp(args[0], args); // forse qua puoi fare fork:
+  // 1 processo exec, la'altro fa la free
   return EXIT_SUCCESS;
 }

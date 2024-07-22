@@ -34,7 +34,8 @@ char **vreaddir(const char *path) {
     dir_len++;
   }
 
-  // allocazione memoria per l'array di stringhe
+  // allocazione memoria per l'array di stringhe (puntatori a stringhe) e per le
+  // stringhe
   int str_len = 50;
   int total_len =
       sizeof(char *) * (dir_len + 1) + sizeof(char) * (dir_len) * (str_len + 1);

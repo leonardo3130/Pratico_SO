@@ -109,5 +109,7 @@ int main(int argc, char *argv[]) {
     perror("inotify_add_watch");
   }
   handle_events(inotify_fd, wd, argv[1]);
+  inotify_rm_watch(inotify_fd, wd);
+  close(inotify_fd);
   return EXIT_SUCCESS;
 }

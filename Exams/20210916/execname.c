@@ -94,6 +94,9 @@ void execFileNames(char *path) {
       }
     }
   }
+
+  inotify_rm_watch(inotify_fd, wd);
+  close(inotify_fd);
 }
 
 int main(int argc, char *argv[]) {

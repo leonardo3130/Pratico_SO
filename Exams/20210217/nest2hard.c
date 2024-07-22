@@ -86,7 +86,6 @@ void scan_dir(char *path) {
     }
     rc = lstat(file_path, &st);
     if (rc != 0) {
-      printf("bro %s\n", file_path);
       perror("lstat");
       exit(EXIT_FAILURE);
     }
