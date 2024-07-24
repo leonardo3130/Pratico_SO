@@ -81,3 +81,6 @@ con la stringa in input --> utilizzo di memcmp
 es1 --> inotify con aggiunta di file a una directory, parsing di stringhe per execv, fork 
 es2 --> qualche problema...
 es3 --> dizionari, subprocess con ls -l, symlink, mkdir
+
+2024.07.23
+PASSATOOOOO
